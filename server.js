@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+require("dotenv").config();
 
 // Sets up the Express App
 // =============================================================
@@ -22,6 +23,7 @@ app.use(express.static("public"));
 // Routes
 // =============================================================
 require("./routes/api-routes.js")(app);
+require("./routes/html-routes.js")(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
@@ -29,4 +31,17 @@ db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
+});
+
+var config = {
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTHDOMAIN,
+  databaseURL: process.env.DATABASEURL,
+  projectId: process.env.PROJECTID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID
+}
+
+app.get('/api/credentials/', function (req, res) {
+  res.send(config);
 });
