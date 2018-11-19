@@ -58,6 +58,8 @@
                 console.log(user);
                 console.log(token);
 
+                $('#name').text('GM: '+ result.user.displayName);
+
                 sessionStorage.setItem("displayName", JSON.stringify(result.user.displayName));
                 sessionStorage.setItem("email", JSON.stringify(result.user.email));
                 sessionStorage.setItem("uid", JSON.stringify(result.user.uid));
